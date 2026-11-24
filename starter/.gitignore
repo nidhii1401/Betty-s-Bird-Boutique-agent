@@ -1,0 +1,36 @@
+# --- Secrets & credentials (NEVER commit these) ---
+.env
+.env.local
+*.env
+betty-agent-key.json
+*-key.json
+*-sa-key.json
+*service-account*.json
+*credentials*.json
+
+# --- Local Python environment ---
+venv/
+env/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# --- MCP Toolbox binary (large, platform-specific, don't commit) ---
+toolbox
+
+# --- ADK local runtime artifacts ---
+**/.adk/
+*.db
+*.sqlite
+*.sqlite3
+
+# --- OS/editor junk ---
+.DS_Store
+Thumbs.db
+.vscode/
+*.swp
+
+# --- Logs ---
+*.log

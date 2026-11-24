@@ -1,0 +1,34 @@
+sources:
+  betty-bird-boutique-mysql:
+    kind: mysql
+    host: ${MYSQL_HOST}
+    port: ${MYSQL_PORT}
+    database: betty_db
+    user: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+
+tools:
+  get_product_price:
+    kind: mysql-sql
+    source: betty-bird-boutique-mysql
+    description: >
+      Looks up the price of a product sold at Betty's Bird Boutique by
+      matching (part of) its name. Use this when a customer asks how much a
+      specific product costs. The match is case-insensitive and works with
+      partial product names (e.g. "cage" will match "Large Cockatiel Cage").
+    parameters:
+      - name: product_name
+        type: string
+        description: >
+          The product name, or the best guess at it, to search for. Does
+          not need to be an exact match -- partial names and typos in the
+          middle of the word are tolerated via a LIKE wildcard search.
+    statement: |
+      SELECT name, CAST(price AS CHAR) AS price
+      FROM products
+      WHERE name LIKE CONCAT('%', ?, '%')
+      LIMIT 5;
+
+toolsets:
+  betty-bird-boutique-toolset:
+    - get_product_price
